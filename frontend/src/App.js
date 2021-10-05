@@ -1,7 +1,14 @@
 import "./App.css";
+import { Header, Footer, LandingPage } from "./components";
 
-function App() {
-  return <div className="App">React App</div>;
-}
+const App = () => (
+  <>
+    <Header />
+    <main>
+      <LandingPage />
+    </main>
+    <Footer />
+  </>
+);
 
 export default App;
