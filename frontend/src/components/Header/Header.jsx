@@ -7,13 +7,16 @@ import {
   FormControl,
   Container,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <Navbar bg="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/" style={{ color: "#ffffff" }}>
-          QuickNote
+        <Navbar.Brand>
+          <Link to="/" style={{ color: "#ffffff", textDecoration: "none" }}>
+            QuickNote
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -32,8 +35,13 @@ const Header = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="#action2" style={{ color: "#ffffff" }}>
-              My Notes
+            <Nav.Link>
+              <Link
+                to="/mynotes"
+                style={{ color: "#ffffff", textDecoration: "none" }}
+              >
+                My Notes
+              </Link>
             </Nav.Link>
             <NavDropdown
               title={<span style={{ color: "#ffffff" }}>Mayuresh Kunder</span>}
