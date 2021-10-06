@@ -1,8 +1,0 @@
-.main {
-  min-height: 85vh;
-  display: flex;
-  align-items: center;
-  background-image: url("../../LandingPageImage.png");
-  background-position: center;
-  background-size: cover;
-}
