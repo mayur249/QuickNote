@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { MainScreen } from "../";
+import axios from "axios";
 
 const MyNotes = () => {
+  // const [notes, setNotes] = useState([]);
+
   const notes = [
     {
       _id: "1",
@@ -46,6 +49,15 @@ const MyNotes = () => {
     if (window.confirm("Are you sure?")) {
     }
   };
+
+  const fetchNotes = () => {
+    // const { data } = await axios.get("http://localhost:5000/api/notes");
+    // setNodes(data);
+  };
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
 
   return (
     <div>
