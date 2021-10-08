@@ -68,7 +68,7 @@ const SignInPage = ({ history }) => {
           </Form.Group>
 
           <Button variant="success" type="submit" className="mt-3">
-            Submit
+            Signin
           </Button>
         </Form>
 
