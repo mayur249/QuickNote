@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./LandingPage.css";
 
 const LandingPage = () => {
+  //useEffect(() => {
+  // const userInfo = localStorage.getItem("userInfo");
+  // if (userInfo) {
+  //   history.push("/mynotes");
+  // }
+  //}, [history]);
   return (
     <div className="main">
       <Container>
@@ -13,12 +20,12 @@ const LandingPage = () => {
               <p className="subtitle">Save all your notes here.</p>
             </div>
             <div className="buttonContainer">
-              <a href="/signin">
+              <Link to="/signin">
                 <Button size="lg" className="landingbutton" variant="success">
                   Signin
                 </Button>
-              </a>
-              <a href="/signup">
+              </Link>
+              <Link to="/signup">
                 <Button
                   size="lg"
                   className="landingbutton"
@@ -26,7 +33,7 @@ const LandingPage = () => {
                 >
                   Signup
                 </Button>
-              </a>
+              </Link>
             </div>
           </div>
         </Row>

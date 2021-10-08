@@ -45,7 +45,7 @@ const signin = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400).json({
-      error: "Invalid Email or Password",
+      message: "Invalid Email or Password",
     });
   }
 });
