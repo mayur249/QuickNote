@@ -1,8 +1,7 @@
-const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../utils/generateToken");
 
-const signup = asyncHandler(async (req, res) => {
+const signup = async (req, res) => {
   const { name, email, password, pic } = req.body;
 
   const userExists = await User.findOne({ email });
@@ -27,9 +26,9 @@ const signup = asyncHandler(async (req, res) => {
       message: "Error occured",
     });
   }
-});
+};
 
-const signin = asyncHandler(async (req, res) => {
+const signin = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -48,6 +47,6 @@ const signin = asyncHandler(async (req, res) => {
       message: "Invalid Email or Password",
     });
   }
-});
+};
 
 module.exports = { signup, signin };

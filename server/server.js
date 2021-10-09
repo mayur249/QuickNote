@@ -7,6 +7,7 @@ const connectDB = require("./config/db");
 
 //My Routes
 const userRoutes = require("./routes/userRoutes");
+const noteRoutes = require("./routes/noteRoutes");
 
 // DB Connection
 connectDB();
@@ -17,6 +18,7 @@ app.use(cors());
 
 //My Routes
 app.use("/api/users", userRoutes);
+app.use("/api/notes", noteRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello There");
