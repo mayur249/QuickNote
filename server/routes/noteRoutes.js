@@ -16,7 +16,12 @@ router.get("/getNotes/:userId", isSignedIn, isAuthenticated, getNotes);
 
 router.post("/create/:userId", isSignedIn, isAuthenticated, createNote);
 
-router.get("/getSingleNote/:noteId", isSignedIn, isAuthenticated, getNoteById);
+router.get(
+  "/getSingleNote/:noteId/:userId",
+  isSignedIn,
+  isAuthenticated,
+  getNoteById
+);
 
 router.put(
   "/updateNote/:noteId/:userId",

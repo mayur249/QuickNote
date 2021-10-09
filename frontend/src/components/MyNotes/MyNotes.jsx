@@ -1,67 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { MainScreen } from "../";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { listNotes } from "../../actions/notesActions";
+import Loading from "../Loading";
+import ErrorMessage from "../ErrorMessage";
 
 const MyNotes = () => {
   // const [notes, setNotes] = useState([]);
 
-  const notes = [
-    {
-      _id: "1",
-      title: "Day 1 of College",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quaerat necessitatibus deserunt voluptates est magnam nihil esse iusto dolor, explicabo assumenda atque sit optio libero, quis provident praesentium consectetur eos.",
-      category: "College",
-    },
-    {
-      _id: "2",
-      title: "Day 1 of College",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quaerat necessitatibus deserunt voluptates est magnam nihil esse iusto dolor, explicabo assumenda atque sit optio libero, quis provident praesentium consectetur eos.",
-      category: "College",
-    },
-    {
-      _id: "3",
-      title: "Day 1 of College",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quaerat necessitatibus deserunt voluptates est magnam nihil esse iusto dolor, explicabo assumenda atque sit optio libero, quis provident praesentium consectetur eos.",
-      category: "College",
-    },
-    {
-      _id: "4",
-      title: "Day 1 of College",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quaerat necessitatibus deserunt voluptates est magnam nihil esse iusto dolor, explicabo assumenda atque sit optio libero, quis provident praesentium consectetur eos.",
-      category: "College",
-    },
-    {
-      _id: "5",
-      title: "Day 1 of College",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quaerat necessitatibus deserunt voluptates est magnam nihil esse iusto dolor, explicabo assumenda atque sit optio libero, quis provident praesentium consectetur eos.",
-      category: "College",
-    },
-  ];
+  const dispatch = useDispatch();
+
+  const noteCreate = useSelector((state) => state.noteCreate);
+
+  const history = useHistory();
+
+  const noteList = useSelector((state) => state.noteList);
+
+  const userSignin = useSelector((state) => state.userSignin);
+
+  const noteUpdate = useSelector((state) => state.noteUpdate);
+
+  const { success: successUpdate } = noteUpdate;
+
+  const { success: successCreate } = noteCreate;
+
+  const { userInfo } = userSignin;
+
+  const { loading, notes, error } = noteList;
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
     }
   };
 
-  const fetchNotes = () => {
-    // const { data } = await axios.get("http://localhost:5000/api/notes");
-    // setNodes(data);
-  };
-
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    dispatch(listNotes());
+    if (!userInfo) {
+      history.push("/");
+    }
+  }, [dispatch, successCreate, history, userInfo, successUpdate]);
 
   return (
     <div>
-      <MainScreen title="Welcome back Mayuresh">
+      <MainScreen title={`Welcome back ${userInfo.name}`}>
         <Link to="/createnote">
           <Button
             style={{ marginLeft: 10, marginBottom: 6 }}
@@ -71,7 +55,9 @@ const MyNotes = () => {
             Create New Note
           </Button>
         </Link>
-        {notes.map((note) => (
+        {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+        {loading && <Loading />}
+        {notes?.reverse().map((note) => (
           <Accordion key={note._id}>
             <Card style={{ margin: 10 }}>
               <Card.Header style={{ display: "flex" }}>
@@ -90,7 +76,7 @@ const MyNotes = () => {
                   </Accordion.Toggle>
                 </span>
                 <div>
-                  <Link to={`/note/${note._id}`}>
+                  <Link to={`/updatenote/${note._id}`}>
                     <Button variant="success">Edit</Button>
                   </Link>
 
@@ -113,7 +99,7 @@ const MyNotes = () => {
                   <blockquote className="blockquote mb-0">
                     <p style={{ color: "white" }}>{note.content}</p>
                     <footer className="blockquote-footer">
-                      Created on - date
+                      Created on <cite>{note.createdAt.substring(0, 10)}</cite>
                     </footer>
                   </blockquote>
                 </Card.Body>

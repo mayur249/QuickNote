@@ -30,7 +30,6 @@ const updateNote = async (req, res) => {
   const { title, content, category } = req.body;
 
   const note = await Note.findById(req.params.noteId);
-  console.log(note);
   if (note.user.toString() !== req.profile._id.toString()) {
     res.status(400).json({ message: "You cannot perform this action" });
   }
@@ -39,7 +38,6 @@ const updateNote = async (req, res) => {
     note.title = title;
     note.content = content;
     note.category = category;
-
     const updatedNote = await note.save();
     res.json(updatedNote);
   } else {

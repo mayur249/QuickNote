@@ -8,18 +8,22 @@ import {
   Container,
 } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {signout} from "../../actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { signout } from "../../actions/userActions";
 
 const Header = () => {
   const history = useHistory();
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  const userSignin = useSelector((state) => state.userSignin);
+
+  const { userInfo } = userSignin;
 
   const signoutHandler = () => {
     dispatch(signout());
-    history.push("/")
-  }
+    history.push("/");
+  };
 
   return (
     <Navbar bg="dark" expand="lg">
@@ -48,25 +52,27 @@ const dispatch = useDispatch();
           >
             <Nav.Link>
               <Link
-                to="/mynotes"
+                to={userInfo ? "/mynotes" : "/signin"}
                 style={{ color: "#ffffff", textDecoration: "none" }}
               >
                 My Notes
               </Link>
             </Nav.Link>
-            <NavDropdown
-              title={<span style={{ color: "#ffffff" }}>Mayuresh Kunder</span>}
-              id="navbarScrollingDropdown"
-              style={{ color: "#ffffff" }}
-            >
-              <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item
-                onClick={signoutHandler}
+            {userInfo && (
+              <NavDropdown
+                title={
+                  <span style={{ color: "#ffffff" }}>{`${userInfo.name}`}</span>
+                }
+                id="navbarScrollingDropdown"
+                style={{ color: "#ffffff" }}
               >
-                Signout
-              </NavDropdown.Item>
-            </NavDropdown>
+                <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={signoutHandler}>
+                  Signout
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

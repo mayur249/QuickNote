@@ -6,6 +6,8 @@ import {
   MyNotes,
   SignInPage,
   SignUpPage,
+  CreateNote,
+  UpdateNote,
 } from "./components";
 import { BrowserRouter, Route } from "react-router-dom";
 
@@ -17,6 +19,8 @@ const App = () => (
       <Route path="/signin" component={SignInPage} exact />
       <Route path="/signup" component={SignUpPage} exact />
       <Route path="/mynotes" component={MyNotes} exact />
+      <Route path="/createnote" component={CreateNote} exact />
+      <Route path="/updatenote/:id" component={UpdateNote} exact />
     </main>
     <Footer />
   </BrowserRouter>
