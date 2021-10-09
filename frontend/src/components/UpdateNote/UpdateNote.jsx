@@ -7,6 +7,7 @@ import ReactMarkdown from "react-markdown";
 import Loading from "../Loading.jsx";
 import ErrorMessage from "../ErrorMessage.jsx";
 import { updateNoteAction, deleteNoteAction } from "../../actions/notesActions";
+import { API } from "../../backend";
 
 const UpdateNote = ({ match, history }) => {
   const [title, setTitle] = useState("");
@@ -35,7 +36,7 @@ const UpdateNote = ({ match, history }) => {
   useEffect(() => {
     const fetching = async () => {
       const { data } = await axios.get(
-        `https://quicknote-mk.herokuapp.com/api/notes/getSingleNote/${match.params.id}/${userInfo._id}`,
+        `${API}/api/notes/getSingleNote/${match.params.id}/${userInfo._id}`,
         {
           headers: {
             Authorization: `Bearer ${userInfo.token}`,

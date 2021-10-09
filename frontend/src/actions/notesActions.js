@@ -13,6 +13,7 @@ import {
   NOTES_DELETE_SUCCESS,
   NOTES_DELETE_FAIL,
 } from "../constants/notesConstants";
+import { API } from "../backend";
 
 export const listNotes = () => async (dispatch, getState) => {
   try {
@@ -30,7 +31,7 @@ export const listNotes = () => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.get(
-      `https://quicknote-mk.herokuapp.com/api/notes/getNotes/${userInfo._id}`,
+      `${API}/api/notes/getNotes/${userInfo._id}`,
       config
     );
 
@@ -67,7 +68,7 @@ export const createNoteAction =
       };
 
       const { data } = await axios.post(
-        `https://quicknote-mk.herokuapp.com/api/notes/create/${userInfo._id}`,
+        `${API}/api/notes/create/${userInfo._id}`,
         { title, content, category },
         config
       );
@@ -104,7 +105,7 @@ export const updateNoteAction =
       };
 
       const { data } = await axios.put(
-        `https://quicknote-mk.herokuapp.com/api/notes/updateNote/${id}/${userInfo._id}`,
+        `${API}/api/notes/updateNote/${id}/${userInfo._id}`,
         { title, content, category },
         config
       );
@@ -139,7 +140,7 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.delete(
-      `https://quicknote-mk.herokuapp.com/api/notes/deleteNote/${id}/${userInfo._id}`,
+      `${API}/api/notes/deleteNote/${id}/${userInfo._id}`,
       config
     );
 

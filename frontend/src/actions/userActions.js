@@ -11,6 +11,7 @@ import {
   USER_UPDATE_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
+import { API } from "../backend";
 
 export const signin = (email, password) => async (dispatch) => {
   try {
@@ -23,7 +24,7 @@ export const signin = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "https://quicknote-mk.herokuapp.com/api/users/signin",
+      "${API}/api/users/signin",
       {
         email,
         password,
@@ -59,7 +60,7 @@ export const signup = (name, email, password, pic) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "https://quicknote-mk.herokuapp.com/api/users/signup",
+      "${API}/api/users/signup",
       { name, pic, email, password },
       config
     );
@@ -94,7 +95,7 @@ export const updateProfile = (user) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `https://quicknote-mk.herokuapp.com/api/users/profile/${user.id}`,
+      `${API}/api/users/profile/${user.id}`,
       user,
       config
     );
