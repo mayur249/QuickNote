@@ -23,7 +23,7 @@ export const signin = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/users/signin",
+      "https://quicknote-mk.herokuapp.com/api/users/signin",
       {
         email,
         password,
@@ -59,7 +59,7 @@ export const signup = (name, email, password, pic) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/users/signup",
+      "https://quicknote-mk.herokuapp.com/api/users/signup",
       { name, pic, email, password },
       config
     );
@@ -94,7 +94,7 @@ export const updateProfile = (user) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `http://localhost:5000/api/users/profile/${user.id}`,
+      `https://quicknote-mk.herokuapp.com/api/users/profile/${user.id}`,
       user,
       config
     );

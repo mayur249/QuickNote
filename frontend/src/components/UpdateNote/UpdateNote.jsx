@@ -35,7 +35,7 @@ const UpdateNote = ({ match, history }) => {
   useEffect(() => {
     const fetching = async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/api/notes/getSingleNote/${match.params.id}/${userInfo._id}`,
+        `https://quicknote-mk.herokuapp.com/api/notes/getSingleNote/${match.params.id}/${userInfo._id}`,
         {
           headers: {
             Authorization: `Bearer ${userInfo.token}`,

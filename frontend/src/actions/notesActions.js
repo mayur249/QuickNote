@@ -30,7 +30,7 @@ export const listNotes = () => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.get(
-      `http://localhost:5000/api/notes/getNotes/${userInfo._id}`,
+      `https://quicknote-mk.herokuapp.com/api/notes/getNotes/${userInfo._id}`,
       config
     );
 
@@ -67,7 +67,7 @@ export const createNoteAction =
       };
 
       const { data } = await axios.post(
-        `http://localhost:5000/api/notes/create/${userInfo._id}`,
+        `https://quicknote-mk.herokuapp.com/api/notes/create/${userInfo._id}`,
         { title, content, category },
         config
       );
@@ -104,7 +104,7 @@ export const updateNoteAction =
       };
 
       const { data } = await axios.put(
-        `http://localhost:5000/api/notes/updateNote/${id}/${userInfo._id}`,
+        `https://quicknote-mk.herokuapp.com/api/notes/updateNote/${id}/${userInfo._id}`,
         { title, content, category },
         config
       );
@@ -139,7 +139,7 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.delete(
-      `http://localhost:5000/api/notes/deleteNote/${id}/${userInfo._id}`,
+      `https://quicknote-mk.herokuapp.com/api/notes/deleteNote/${id}/${userInfo._id}`,
       config
     );
 
