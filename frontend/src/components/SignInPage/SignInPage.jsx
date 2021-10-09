@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -6,39 +5,28 @@ import { MainScreen } from "../";
 import "./SignInPage.css";
 import Loading from "../Loading";
 import ErrorMessage from "../ErrorMessage";
+import { useDispatch, useSelector } from "react-redux";
+import { signin } from "../../actions/userActions";
 
 const SignInPage = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const userSignin = useSelector((state) => state.userSignin);
+
+  const { loading, error, userInfo } = userSignin;
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/mynotes");
+    }
+  }, [history, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(email, password);
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      setLoading(true);
-      setError(false);
-      const { data } = await axios.post(
-        "http://localhost:5000/api/users/signin",
-        {
-          email,
-          password,
-        },
-        config
-      );
-      console.log("Data after signin", data);
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      setLoading(false);
-    } catch (error) {
-      setError(error.response.data.message);
-      setLoading(false);
-    }
+    dispatch(signin(email, password));
   };
 
   return (

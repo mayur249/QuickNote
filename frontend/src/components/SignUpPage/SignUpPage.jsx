@@ -1,8 +1,9 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import { MainScreen } from "../";
+import { signup } from "../../actions/userActions";
 import ErrorMessage from "../ErrorMessage";
 import Loading from "../Loading";
 const SignUpPage = () => {
@@ -15,8 +16,19 @@ const SignUpPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [picMessage, setPicMessage] = useState(null);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  const userSignup = useSelector((state) => state.userSignup);
+  const { loading, error, userInfo } = userSignup;
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/mynotes");
+    }
+  }, [history, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -24,27 +36,7 @@ const SignUpPage = () => {
       setMessage("Passwords Do Not Match");
     } else {
       setMessage(null);
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-
-        setLoading(true);
-
-        const { data } = await axios.post(
-          "http://localhost:5000/api/users/signup",
-          { name, pic, email, password },
-          config
-        );
-
-        setLoading(false);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-        console.log(data);
-      } catch (error) {
-        setError(error.response.data.message);
-      }
+      dispatch(signup(name, email, password, pic));
     }
   };
 
