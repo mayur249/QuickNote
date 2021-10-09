@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import "./App.css";
 import {
   Header,
@@ -11,19 +12,27 @@ import {
 } from "./components";
 import { BrowserRouter, Route } from "react-router-dom";
 
-const App = () => (
-  <BrowserRouter>
-    <Header />
-    <main>
-      <Route path="/" component={LandingPage} exact />
-      <Route path="/signin" component={SignInPage} exact />
-      <Route path="/signup" component={SignUpPage} exact />
-      <Route path="/mynotes" component={MyNotes} exact />
-      <Route path="/createnote" component={CreateNote} exact />
-      <Route path="/updatenote/:id" component={UpdateNote} exact />
-    </main>
-    <Footer />
-  </BrowserRouter>
-);
+const App = () => {
+  const [search, setSearch] = useState("");
+
+  return (
+    <BrowserRouter>
+      <Header setSearch={setSearch} />
+      <main>
+        <Route path="/" component={LandingPage} exact />
+        <Route path="/signin" component={SignInPage} exact />
+        <Route path="/signup" component={SignUpPage} exact />
+        <Route
+          path="/mynotes"
+          component={() => <MyNotes search={search} />}
+          exact
+        />
+        <Route path="/createnote" component={CreateNote} exact />
+        <Route path="/updatenote/:id" component={UpdateNote} exact />
+      </main>
+      <Footer />
+    </BrowserRouter>
+  );
+};
 
 export default App;

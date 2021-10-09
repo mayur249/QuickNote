@@ -6,7 +6,7 @@ import { MainScreen } from "../";
 import ReactMarkdown from "react-markdown";
 import Loading from "../Loading.jsx";
 import ErrorMessage from "../ErrorMessage.jsx";
-import { updateNoteAction } from "../../actions/notesActions";
+import { updateNoteAction, deleteNoteAction } from "../../actions/notesActions";
 
 const UpdateNote = ({ match, history }) => {
   const [title, setTitle] = useState("");
@@ -22,15 +22,15 @@ const UpdateNote = ({ match, history }) => {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
-  // const noteDelete = useSelector((state) => state.noteDelete);
-  // const {loading: loadingDelete, error: errorDelete } = noteDelete;
+  const noteDelete = useSelector((state) => state.noteDelete);
+  const { loading: loadingDelete, error: errorDelete } = noteDelete;
 
-  // const deleteHandler = (id) => {
-  //    if(window.confirm("Are you sure?")){
-  //        dispatch(deleteNoteAction(id));
-  //   }
-  //    history.push("/mynotes");
-  // }
+  const deleteHandler = (id) => {
+    if (window.confirm("Are you sure?")) {
+      dispatch(deleteNoteAction(id));
+    }
+    history.push("/mynotes");
+  };
 
   useEffect(() => {
     const fetching = async () => {
@@ -71,6 +71,10 @@ const UpdateNote = ({ match, history }) => {
         <Card.Header>Edit your Note</Card.Header>
         <Card.Body>
           <Form onSubmit={updateHandler}>
+            {errorDelete && (
+              <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
+            )}
+            {loadingDelete && <Loading />}
             {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
             <Form.Group controlId="title">
               <Form.Label>Title</Form.Label>
@@ -116,7 +120,7 @@ const UpdateNote = ({ match, history }) => {
             </Button>
             <Button
               className="mx-2 mt-3"
-              // onClick={() => deleteHandler(match.params.id)}
+              onClick={() => deleteHandler(match.params.id)}
               variant="danger"
             >
               Delete Node
