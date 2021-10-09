@@ -49,4 +49,30 @@ const signin = async (req, res) => {
   }
 };
 
-module.exports = { signup, signin };
+const updateUserProfile = async (req, res) => {
+  const user = await User.findById(req.profile._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.pic = req.body.pic || user.pic;
+
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      pic: updatedUser.pic,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404).json({
+      message: "User Not Found",
+    });
+  }
+};
+module.exports = { signup, signin, updateUserProfile };
