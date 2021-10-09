@@ -9,6 +9,7 @@ import {
   SignUpPage,
   CreateNote,
   UpdateNote,
+  ProfilePage,
 } from "./components";
 import { BrowserRouter, Route } from "react-router-dom";
 
@@ -29,6 +30,7 @@ const App = () => {
         />
         <Route path="/createnote" component={CreateNote} exact />
         <Route path="/updatenote/:id" component={UpdateNote} exact />
+        <Route path="/updateprofile" component={ProfilePage} exact />
       </main>
       <Footer />
     </BrowserRouter>

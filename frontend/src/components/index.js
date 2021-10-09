@@ -7,3 +7,4 @@ export { default as SignInPage } from "./SignInPage/SignInPage";
 export { default as SignUpPage } from "./SignUpPage/SignUpPage";
 export { default as CreateNote } from "./CreateNote/CreateNote";
 export { default as UpdateNote } from "./UpdateNote/UpdateNote";
+export { default as ProfilePage } from "./ProfilePage/ProfilePage";

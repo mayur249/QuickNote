@@ -67,10 +67,14 @@ const Header = ({ setSearch }) => {
                 id="navbarScrollingDropdown"
                 style={{ color: "#ffffff" }}
               >
-                <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/updateprofile" style={{ textDecoration: "none" }}>
+                    My Profile
+                  </Link>
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={signoutHandler}>
-                  Signout
+                  <a style={{ color: "#2aa198" }}>Signout</a>
                 </NavDropdown.Item>
               </NavDropdown>
             )}
