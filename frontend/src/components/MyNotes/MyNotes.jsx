@@ -11,6 +11,8 @@ import ErrorMessage from "../ErrorMessage";
 const MyNotes = ({ search }) => {
   // const [notes, setNotes] = useState([]);
 
+  const [lineThrough, setLineThrough] = useState(false);
+
   const dispatch = useDispatch();
 
   const noteCreate = useSelector((state) => state.noteCreate);
@@ -101,6 +103,9 @@ const MyNotes = ({ search }) => {
                       as={Card.Text}
                       variant="link"
                       eventKey="0"
+                      style={{
+                        textDecoration: lineThrough ? "line-through" : "none",
+                      }}
                     >
                       {note.title}
                     </Accordion.Toggle>
@@ -116,6 +121,13 @@ const MyNotes = ({ search }) => {
                       onClick={() => deleteHandler(note._id)}
                     >
                       Delete
+                    </Button>
+                    <Button
+                      variant="danger"
+                      className="mx-2"
+                      onClick={() => setLineThrough((prevState) => !prevState)}
+                    >
+                      Complete
                     </Button>
                   </div>
                 </Card.Header>
