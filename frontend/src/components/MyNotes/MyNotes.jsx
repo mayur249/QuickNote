@@ -11,7 +11,7 @@ import ErrorMessage from "../ErrorMessage";
 const MyNotes = ({ search }) => {
   // const [notes, setNotes] = useState([]);
 
-  const [lineThrough, setLineThrough] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -104,7 +104,7 @@ const MyNotes = ({ search }) => {
                       variant="link"
                       eventKey="0"
                       style={{
-                        textDecoration: lineThrough ? "line-through" : "none",
+                        textDecoration: isComplete ? "line-through" : "none",
                       }}
                     >
                       {note.title}
@@ -125,7 +125,7 @@ const MyNotes = ({ search }) => {
                     <Button
                       variant="danger"
                       className="mx-2"
-                      onClick={() => setLineThrough((prevState) => !prevState)}
+                      onClick={() => setIsComplete((prevState) => !prevState)}
                     >
                       Complete
                     </Button>
