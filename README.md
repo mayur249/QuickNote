@@ -7,8 +7,4 @@
 - Backend Stack: Node.js, MongoDB, ExpressJS, JWT, mongoose
 - Frontend Stack: ReactJS, React-Bootstrap, React-Redux, Redux thunk
 
-## Deployment
 
-- Heroku
-
-Click [here](https://quicknote-mk.herokuapp.com/) to view the demo.
